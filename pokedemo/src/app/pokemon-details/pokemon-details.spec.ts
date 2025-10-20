@@ -8,9 +8,8 @@ describe('PokemonDetails', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PokemonDetails]
-    })
-    .compileComponents();
+      declarations: [PokemonDetails],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonDetails);
     component = fixture.componentInstance;
@@ -19,5 +18,10 @@ describe('PokemonDetails', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render the title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('mat-card-title')?.textContent).toContain('Pokédex');
   });
 });
