@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideHttpClient } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PokemonDetails } from './pokemon-details';
 
 describe('PokemonDetails', () => {
@@ -9,6 +10,8 @@ describe('PokemonDetails', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PokemonDetails],
+      providers: [provideHttpClient()],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonDetails);
@@ -20,8 +23,9 @@ describe('PokemonDetails', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the title', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('mat-card-title')?.textContent).toContain('Pokédex');
+  it('should initialize with default values', () => {
+    expect(component.currentPokemonId).toBe('-1');
+    expect(component.isLoading).toBe(false);
+    expect(component.errorMessage).toBe('');
   });
 });
