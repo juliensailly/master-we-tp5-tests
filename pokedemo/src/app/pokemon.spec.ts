@@ -42,7 +42,7 @@ describe('Pokemon', () => {
     const pokemon = new Pokemon('1', 'Bulbasaur');
     const stats: PokemonStat[] = [
       { name: 'HP', value: 45 },
-      { name: 'Attack', value: 49 }
+      { name: 'Attack', value: 49 },
     ];
     pokemon.stats = stats;
     expect(pokemon.stats).toEqual(stats);
@@ -56,7 +56,7 @@ describe('Pokemon', () => {
     pokemon.types = ['fire', 'flying'];
     pokemon.stats = [
       { name: 'HP', value: 78 },
-      { name: 'Attack', value: 84 }
+      { name: 'Attack', value: 84 },
     ];
 
     expect(pokemon.id).toBe('6');

@@ -16,14 +16,14 @@ describe('PokemonCommunication', () => {
   });
 
   it('should have initial pokemon id as -1', (done) => {
-    service.selectedPokemonId$.subscribe(id => {
+    service.selectedPokemonId$.subscribe((id) => {
       expect(id).toBe('-1');
       done();
     });
   });
 
   it('should have initial searched pokemon name as empty string', (done) => {
-    service.searchedPokemonName$.subscribe(name => {
+    service.searchedPokemonName$.subscribe((name) => {
       expect(name).toBe('');
       done();
     });
@@ -32,8 +32,8 @@ describe('PokemonCommunication', () => {
   it('should update selected pokemon id', (done) => {
     const testId = '25';
     service.setSelectedPokemonId(testId);
-    
-    service.selectedPokemonId$.subscribe(id => {
+
+    service.selectedPokemonId$.subscribe((id) => {
       expect(id).toBe(testId);
       done();
     });
@@ -42,8 +42,8 @@ describe('PokemonCommunication', () => {
   it('should update searched pokemon name', (done) => {
     const testName = 'pikachu';
     service.setSearchedPokemonName(testName);
-    
-    service.searchedPokemonName$.subscribe(name => {
+
+    service.searchedPokemonName$.subscribe((name) => {
       expect(name).toBe(testName);
       done();
     });
@@ -65,15 +65,15 @@ describe('PokemonCommunication', () => {
     // D'abord définir des valeurs
     service.setSelectedPokemonId('25');
     service.setSearchedPokemonName('pikachu');
-    
+
     // Réinitialiser
     service.resetSelection();
-    
+
     // Vérifier que les valeurs sont réinitialisées
     expect(service.getCurrentPokemonId()).toBe('-1');
     expect(service.getCurrentSearchedName()).toBe('');
-    
-    service.selectedPokemonId$.subscribe(id => {
+
+    service.selectedPokemonId$.subscribe((id) => {
       expect(id).toBe('-1');
       done();
     });
@@ -81,15 +81,15 @@ describe('PokemonCommunication', () => {
 
   it('should emit multiple values in sequence', () => {
     const emittedValues: string[] = [];
-    
-    service.selectedPokemonId$.subscribe(id => {
+
+    service.selectedPokemonId$.subscribe((id) => {
       emittedValues.push(id);
     });
-    
+
     service.setSelectedPokemonId('1');
     service.setSelectedPokemonId('25');
     service.setSelectedPokemonId('150');
-    
+
     expect(emittedValues).toContain('1');
     expect(emittedValues).toContain('25');
     expect(emittedValues).toContain('150');

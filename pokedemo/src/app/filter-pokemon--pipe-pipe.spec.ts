@@ -12,7 +12,7 @@ describe('FilterPokemonPipePipe', () => {
       new Pokemon('25', 'Pikachu', 'url2'),
       new Pokemon('6', 'Charizard', 'url3'),
       new Pokemon('150', 'Mewtwo', 'url4'),
-      new Pokemon('94', 'Gengar', 'url5')
+      new Pokemon('94', 'Gengar', 'url5'),
     ];
   });
 
@@ -46,9 +46,9 @@ describe('FilterPokemonPipePipe', () => {
   it('should return multiple matches', () => {
     const result = pipe.transform(mockPokemons, 'name', 'a');
     expect(result.length).toBeGreaterThan(1);
-    expect(result.some(p => p.name === 'Pikachu')).toBe(true);
-    expect(result.some(p => p.name === 'Charizard')).toBe(true);
-    expect(result.some(p => p.name === 'Gengar')).toBe(true);
+    expect(result.some((p) => p.name === 'Pikachu')).toBe(true);
+    expect(result.some((p) => p.name === 'Charizard')).toBe(true);
+    expect(result.some((p) => p.name === 'Gengar')).toBe(true);
   });
 
   it('should return empty array when no matches found', () => {

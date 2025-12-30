@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { PokeAPI } from './poke-api';
 
 describe('PokeAPI', () => {
@@ -9,10 +9,7 @@ describe('PokeAPI', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     service = TestBed.inject(PokeAPI);
     httpMock = TestBed.inject(HttpTestingController);
@@ -33,11 +30,11 @@ describe('PokeAPI', () => {
       results: [
         { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
         { name: 'ivysaur', url: 'https://pokeapi.co/api/v2/pokemon/2/' },
-        { name: 'venusaur', url: 'https://pokeapi.co/api/v2/pokemon/3/' }
-      ]
+        { name: 'venusaur', url: 'https://pokeapi.co/api/v2/pokemon/3/' },
+      ],
     };
 
-    service.getPokemons().subscribe(response => {
+    service.getPokemons().subscribe((response) => {
       expect(response).toEqual(mockResponse);
       expect((response as any).results.length).toBe(3);
     });
@@ -50,10 +47,10 @@ describe('PokeAPI', () => {
   it('should get pokemons with custom limit', () => {
     const mockResponse = {
       count: 151,
-      results: Array(151).fill({ name: 'pokemon', url: 'https://pokeapi.co/api/v2/pokemon/1/' })
+      results: Array(151).fill({ name: 'pokemon', url: 'https://pokeapi.co/api/v2/pokemon/1/' }),
     };
 
-    service.getPokemons(151).subscribe(response => {
+    service.getPokemons(151).subscribe((response) => {
       expect((response as any).results.length).toBe(151);
     });
 
@@ -69,17 +66,14 @@ describe('PokeAPI', () => {
       height: 4,
       weight: 60,
       sprites: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
       },
-      types: [
-        { type: { name: 'electric' } }
-      ],
-      stats: [
-        { base_stat: 35, stat: { name: 'hp' } }
-      ]
+      types: [{ type: { name: 'electric' } }],
+      stats: [{ base_stat: 35, stat: { name: 'hp' } }],
     };
 
-    service.getPokemon('25').subscribe(response => {
+    service.getPokemon('25').subscribe((response) => {
       expect(response).toEqual(mockPokemon);
       expect((response as any).name).toBe('pikachu');
     });
@@ -96,7 +90,7 @@ describe('PokeAPI', () => {
       next: () => fail('should have failed with 404 error'),
       error: (error) => {
         expect(error.status).toBe(404);
-      }
+      },
     });
 
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=100');
@@ -108,7 +102,7 @@ describe('PokeAPI', () => {
       next: () => fail('should have failed with 404 error'),
       error: (error) => {
         expect(error.status).toBe(404);
-      }
+      },
     });
 
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon/999999/');

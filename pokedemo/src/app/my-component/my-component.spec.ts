@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MyComponent } from './my-component';
-import { PokemonCommunication } from '../pokemon-communication';
 import { PokeAPI } from '../poke-api';
+import { PokemonCommunication } from '../pokemon-communication';
+import { MyComponent } from './my-component';
 
 describe('MyComponent', () => {
   let component: MyComponent;
@@ -17,12 +17,7 @@ describe('MyComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [MyComponent],
       imports: [FormsModule],
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        PokemonCommunication,
-        PokeAPI
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), PokemonCommunication, PokeAPI],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     }).compileComponents();
 
@@ -45,11 +40,11 @@ describe('MyComponent', () => {
       results: [
         { name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
         { name: 'ivysaur', url: 'https://pokeapi.co/api/v2/pokemon/2/' },
-        { name: 'venusaur', url: 'https://pokeapi.co/api/v2/pokemon/3/' }
-      ]
+        { name: 'venusaur', url: 'https://pokeapi.co/api/v2/pokemon/3/' },
+      ],
     };
 
-    fixture.detectChanges(); // Triggers ngOnInit
+    component.ngOnInit(); // Appel manuel de ngOnInit sans fixture.detectChanges()
 
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=151');
     expect(req.request.method).toBe('GET');
@@ -62,23 +57,23 @@ describe('MyComponent', () => {
   });
 
   it('should handle error when loading pokemons', () => {
-    fixture.detectChanges();
+    component.ngOnInit();
 
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=151');
     req.flush('Error loading pokemons', { status: 500, statusText: 'Server Error' });
 
-    expect(component.errorLoadingPokemons).toBe('Erreur lors du chargement de la liste des Pokémons');
+    expect(component.errorLoadingPokemons).toBe(
+      'Erreur lors du chargement de la liste des Pokémons'
+    );
     expect(component.isLoadingPokemons).toBe(false);
   });
 
   it('should capitalize first letter of pokemon name', () => {
     const mockResponse = {
-      results: [
-        { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' }
-      ]
+      results: [{ name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' }],
     };
 
-    fixture.detectChanges();
+    component.ngOnInit();
 
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=151');
     req.flush(mockResponse);
@@ -88,7 +83,7 @@ describe('MyComponent', () => {
 
   it('should update selected pokemon id on selection', () => {
     jest.spyOn(pokemonCommunicationService, 'setSelectedPokemonId');
-    
+
     component.selectedPokemonId = '25';
     component.onPokemonSelection();
 
@@ -97,17 +92,15 @@ describe('MyComponent', () => {
 
   it('should display selected pokemon', () => {
     const mockResponse = {
-      results: [
-        { name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' }
-      ]
+      results: [{ name: 'pikachu', url: 'https://pokeapi.co/api/v2/pokemon/25/' }],
     };
 
-    fixture.detectChanges();
+    component.ngOnInit();
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=151');
     req.flush(mockResponse);
 
     jest.spyOn(pokemonCommunicationService, 'setSelectedPokemonId');
-    
+
     component.selectedPokemonId = '25';
     component.displaySelectedPokemon();
 
@@ -115,7 +108,7 @@ describe('MyComponent', () => {
   });
 
   it('should subscribe to pokemon communication service', () => {
-    fixture.detectChanges();
+    component.ngOnInit();
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=151');
     req.flush({ results: [] });
 
@@ -125,7 +118,7 @@ describe('MyComponent', () => {
   });
 
   it('should unsubscribe on destroy', () => {
-    fixture.detectChanges();
+    component.ngOnInit();
     const req = httpMock.expectOne('https://pokeapi.co/api/v2/pokemon?limit=151');
     req.flush({ results: [] });
 

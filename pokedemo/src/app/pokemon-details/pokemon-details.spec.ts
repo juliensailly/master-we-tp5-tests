@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { PokemonDetails } from './pokemon-details';
-import { PokemonCommunication } from '../pokemon-communication';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PokeAPI } from '../poke-api';
+import { PokemonCommunication } from '../pokemon-communication';
+import { PokemonDetails } from './pokemon-details';
 
 describe('PokemonDetails', () => {
   let component: PokemonDetails;
@@ -15,12 +15,7 @@ describe('PokemonDetails', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PokemonDetails],
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        PokemonCommunication,
-        PokeAPI
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), PokemonCommunication, PokeAPI],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
@@ -51,15 +46,14 @@ describe('PokemonDetails', () => {
       height: 4,
       weight: 60,
       sprites: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
       },
-      types: [
-        { type: { name: 'electric' } }
-      ],
+      types: [{ type: { name: 'electric' } }],
       stats: [
         { base_stat: 35, stat: { name: 'hp' } },
-        { base_stat: 55, stat: { name: 'attack' } }
-      ]
+        { base_stat: 55, stat: { name: 'attack' } },
+      ],
     };
 
     fixture.detectChanges(); // Triggers ngOnInit
@@ -102,7 +96,7 @@ describe('PokemonDetails', () => {
       name: 'pikachu',
       sprites: { front_default: 'url' },
       types: [],
-      stats: []
+      stats: [],
     });
 
     // Then reset
@@ -125,8 +119,8 @@ describe('PokemonDetails', () => {
         { base_stat: 49, stat: { name: 'defense' } },
         { base_stat: 65, stat: { name: 'special-attack' } },
         { base_stat: 65, stat: { name: 'special-defense' } },
-        { base_stat: 45, stat: { name: 'speed' } }
-      ]
+        { base_stat: 45, stat: { name: 'speed' } },
+      ],
     };
 
     fixture.detectChanges();
@@ -156,7 +150,7 @@ describe('PokemonDetails', () => {
       name: 'pikachu',
       sprites: { front_default: '' },
       types: [],
-      stats: []
+      stats: [],
     });
 
     expect(component.isLoading).toBe(false);
@@ -164,7 +158,7 @@ describe('PokemonDetails', () => {
 
   it('should unsubscribe on destroy', () => {
     fixture.detectChanges();
-    
+
     jest.spyOn(component['subscription'], 'unsubscribe');
     component.ngOnDestroy();
 
@@ -177,7 +171,7 @@ describe('PokemonDetails', () => {
       name: 'pikachu',
       sprites: {},
       types: [],
-      stats: []
+      stats: [],
     };
 
     fixture.detectChanges();
@@ -194,11 +188,8 @@ describe('PokemonDetails', () => {
       id: 6,
       name: 'charizard',
       sprites: { front_default: '' },
-      types: [
-        { type: { name: 'fire' } },
-        { type: { name: 'flying' } }
-      ],
-      stats: []
+      types: [{ type: { name: 'fire' } }, { type: { name: 'flying' } }],
+      stats: [],
     };
 
     fixture.detectChanges();
