@@ -1,0 +1,7 @@
+# Cypress artifacts
+cypress/videos
+cypress/screenshots
+cypress/downloads
+
+# Cypress cache
+.cypress_cache
